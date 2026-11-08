@@ -23,8 +23,8 @@ def load_verlauf(path):
             v.append(float(parts[1]))
     return np.array(t), np.array(v)
 
-soll_full = load_soll_offset("offset_20260702_extended_neu.log")
-t_ist, ist = load_verlauf("verlauf_20260702_neu.log")
+soll_full = load_soll_offset("offset_extended.log")
+t_ist, ist = load_verlauf("verlauf.log")
 
 # Soll-Werte an denselben Zeitpunkten wie die Ist-Messung entnehmen
 soll = np.array([soll_full[min(int(round(tt)), len(soll_full) - 1)] for tt in t_ist])
@@ -49,5 +49,5 @@ ax2.grid(True, alpha=0.3)
 ax2.xaxis.set_major_locator(MultipleLocator(200))
 
 plt.tight_layout()
-plt.savefig("diagramm_20260702_verlauf_vergleich.svg", bbox_inches="tight")
-print("Diagramm gespeichert als diagramm_20260702_verlauf_vergleich.svg")
+plt.savefig("diagramm_verlauf_vergleich.svg", bbox_inches="tight")
+print("Diagramm gespeichert als diagramm_verlauf_vergleich.svg")

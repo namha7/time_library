@@ -29,10 +29,10 @@ Configs (in `clknetsim/`):
 
 Start (Beispiel mit `sim.conf`, `-l` = Laufzeit in Sekunden):
 ```bash
-./clknetsim -v 3 -R 1 -o offset.log -f freq.log -l 10000 sim.conf 2 &
+../clknetsim/clknetsim -v 3 -R 1 -o offset.log -f freq.log -l 10000 clknetsim/conf/sim.conf 2 &
 sleep 1
-LD_PRELOAD=./clknetsim.so CLKNETSIM_NODE=1 chronyd -d -f server.conf &
-LD_PRELOAD=./clknetsim.so CLKNETSIM_NODE=2 /pfad/zu/ntpd -n -c client_ntp.conf &
+LD_PRELOAD=../clknetsim/clknetsim.so CLKNETSIM_NODE=1 ./chronyd-sim -d -f clknetsim/conf/server.conf &
+LD_PRELOAD=../clknetsim/clknetsim.so CLKNETSIM_NODE=2 ../ntp-4.2.8p18/ntpd/ntpd -n -c clknetsim/conf/client_ntp.conf &
 wait
 ```
 Nach jedem Lauf `ntpstats/peerstats` und `ntpstats/loopstats` umbenennen, bevor der nächste Lauf sie überschreibt.
@@ -40,7 +40,7 @@ Nach jedem Lauf `ntpstats/peerstats` und `ntpstats/loopstats` umbenennen, bevor 
 ## 2. Erweiterte Logdatei erzeugen
 
 ```bash
-python3 clknetsim/build_extended_log.py offset.log peerstats loopstats offset_extended.log
+python3 clknetsim/build_extended_log.py offset.log ../clknetsim/ntpstats/peerstats ../clknetsim/ntpstats/loopstats offset_extended.log
 ```
 Spalten: Zeit, Offset, `maxerror`, `esterror`, `freq`, `constant`. `maxerror`/`esterror` wachsen mit fester Rate Φ = 15 µs/s ab dem letzten Messwert (NTP-Standard), `freq`/`constant` werden linear interpoliert.
 

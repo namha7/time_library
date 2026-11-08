@@ -1,0 +1,1 @@
+python3 ../../clknetsim/build_extended_log.py offset.log peerstats loopstats offset_extended.log

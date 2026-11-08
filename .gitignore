@@ -23,3 +23,8 @@ sim3.conf
 plot_offset.py
 alt/
 *.svg
+/chronyd-sim
+/experiments/**/peerstats*
+/experiments/**/loopstats*
+__pycache__/
+*.pyc
